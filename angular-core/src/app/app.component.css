@@ -1,0 +1,14 @@
+.sebm-google-map-container {
+    height: 300px;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+
+
+#map #infowindow-content {
+    display: inline;
+}
+
