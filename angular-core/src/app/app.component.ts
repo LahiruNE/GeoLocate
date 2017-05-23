@@ -1,7 +1,8 @@
 import { Component,ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from "@angular/forms";
+import {} from '@types/googlemaps';
 import { MapsAPILoader } from 'angular2-google-maps/core';
-
+declare var google: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -80,7 +81,9 @@ export class AppComponent implements OnInit{
             address = [
               (place.address_components[0] && place.address_components[0].short_name || ''),
               (place.address_components[1] && place.address_components[1].short_name || ''),
-              (place.address_components[2] && place.address_components[2].short_name || '')
+              (place.address_components[2] && place.address_components[2].short_name || ''),
+              (place.address_components[3] && place.address_components[3].short_name || ''),
+              (place.address_components[4] && place.address_components[4].short_name || '')
             ].join(' ');
           }
 
@@ -89,7 +92,7 @@ export class AppComponent implements OnInit{
           //infowindowContent.children['place-name'].textContent = place.name;
           infowindowContent.children['place-name'].textContent = place.address_components[1] && place.address_components[1].short_name || '';
           infowindowContent.children['place-address'].textContent = address;
-          
+          infowindowContent.children['place-id'].textContent = "Location ID :"+place.place_id;          
         });
       });
     });

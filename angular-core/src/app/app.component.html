@@ -27,9 +27,10 @@
         <div  #infowindow id="infowindow-content">
           <img src="" width="16" height="16" id="place-icon">
           <span id="place-name"  class="title"></span><br>
-          <span id="place-address"></span>
+          <span id="place-address"></span><br>
+          Location ID : <span id="place-id"></span>
         </div>
-
+              
       </div>
       <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom" #map id="map">
         <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
