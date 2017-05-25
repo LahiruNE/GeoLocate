@@ -8,11 +8,10 @@
     "start": "node app"
   },
   "dependencies": {
-    "angular2-google-maps": "^0.17.0",
     "body-parser": "*",
     "cors": "*",
     "express": "*",
-    "mongoose": "*"
+    "underscore": "1.4.4"
   },
   "author": "Walawwe_Set_Eka",
   "license": "ISC",

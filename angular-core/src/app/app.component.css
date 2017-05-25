@@ -2,18 +2,18 @@
         height: 300px;
         width: 500px;
         top: 40px
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      .title {
-        font-weight: bold;
-      }
+}
       
-      #map #infowindow-content {
-        display: inline;
-      }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  font-weight: bold;
+}
+
+#map #infowindow-content {
+  display: inline;
+}

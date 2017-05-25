@@ -7,35 +7,27 @@
     <div class="container">
       <h1>GeoLocater</h1>
       <div class="form-group">        
-        <input type="radio" name="type" id="changetype-all" checked="checked">
-        <label for="changetype-all">All</label>
-
-        <input type="radio" name="type" id="changetype-establishment">
-        <label for="changetype-establishment">Establishments</label>
-
-        <input type="radio" name="type" id="changetype-address">
-        <label for="changetype-address">Addresses</label>
-
-        <input type="radio" name="type" id="changetype-geocode">
-        <label for="changetype-geocode">Geocodes</label>
-
-        <input type="checkbox" id="use-strict-bounds">
-        <label for="use-strict-bounds">Strict Bounds</label>
-
         <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
         
-        <div  #infowindow id="infowindow-content">
-          <img src="" width="16" height="16" id="place-icon">
-          <span id="place-name"  class="title"></span><br>
-          <span id="place-address"></span><br>
-          Location ID : <span id="place-id"></span>
-        </div>
+        <div *ngIf="edited">        
+          <div><img src="{{icon}}" width="16" height="16"/>{{name}}</div>
+          <div>{{add}}</div>
+        </div>        
               
       </div>
       <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom" #map id="map">
         <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
       </sebm-google-map>
     </div>
+
+    <div *ngIf="visible">      
+      <img src="{{data?.icon}}"  />
+      <div><b>{{data?.location}}</b> </div>
+      <div style="color:#07CFFC"><b>{{data?.date}}</b> </div>
+      <div style="color:#1707FC"> <b>{{data?.weatherDesc}}</b> </div>
+      <div style="color:#FC071B"><b>{{data?.temp}}Celcius</b></div>       
+    </div>
+    
   </body>
 </html>
 

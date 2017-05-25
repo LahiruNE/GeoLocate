@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AgmCoreModule } from "angular2-google-maps/core";
 import { AppComponent } from './app.component';
+import { GetweatherService } from './services/getweather.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { AppComponent } from './app.component';
     HttpModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [GetweatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

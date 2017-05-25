@@ -2,6 +2,8 @@ import { Component,ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import {} from '@types/googlemaps';
 import { MapsAPILoader } from 'angular2-google-maps/core';
+import { GetweatherService } from './services/getweather.service';
+
 declare var google: any;
 @Component({
   selector: 'app-root',
@@ -15,63 +17,52 @@ export class AppComponent implements OnInit{
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
-
-  public edited = false;
+  public data: any;
+  public icon: any;
+  public name: any;
+  public add: any;
+  public edited :boolean= false;
+  public visible :boolean= false;
 
   @ViewChild("search")
   public searchElementRef: ElementRef;
-  
-  @ViewChild("infowindow")
-  public infoElementRef: ElementRef;
 
   @ViewChild("map")
   public mapElementRef: ElementRef;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private getweatherService: GetweatherService
   ) {}     
 
-  ngOnInit() {    
-    //set google maps defaults
+  ngOnInit() { 
     this.zoom = 7;
     this.latitude = 6.927078600000002;
     this.longitude = 79.86124300000006;
-
-    //create search FormControl
+    
     this.searchControl = new FormControl();
 
-    //set current position
     this.setCurrentPosition();
 
-    //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      
-      var infowindowContent = this.infoElementRef.nativeElement
-      var infowindow = new google.maps.InfoWindow();      
-      infowindow.setContent(infowindowContent);
-      
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);      
+     
       autocomplete.addListener("place_changed", () => {
-        console.log(this.searchElementRef.nativeElement.value);
-        
         this.edited = true;
-        infowindow.close();
+        console.log(this.searchElementRef.nativeElement.value);      
 
         this.ngZone.run(() => {
-          //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
           console.log(place.geometry.location.lat());
           console.log(place.geometry.location.lng());
-
-          //verify result
+         
           if (place.geometry === undefined || place.geometry === null) {
             alert("No available location found!");
             return;
           }
-
-          //set latitude, longitude and zoom
+          
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.zoom = 15;
@@ -86,13 +77,20 @@ export class AppComponent implements OnInit{
               (place.address_components[4] && place.address_components[4].short_name || '')
             ].join(' ');
           }
+         
+          this.icon= place.icon;
+          this.name= place.address_components[1] && place.address_components[1].short_name || '';
+          this.add= address;
 
-          
-          infowindowContent.children['place-icon'].src = place.icon;
-          //infowindowContent.children['place-name'].textContent = place.name;
-          infowindowContent.children['place-name'].textContent = place.address_components[1] && place.address_components[1].short_name || '';
-          infowindowContent.children['place-address'].textContent = address;
-          infowindowContent.children['place-id'].textContent = "Location ID :"+place.place_id;          
+          var coords = {
+            'lat' : place.geometry.location.lat(),
+            'long': place.geometry.location.lng()
+          };              
+ 
+          this.getweatherService.getWeather(coords).then(data=>{
+            this.data=data;
+            this.visible=true;
+          });   
         });
       });
     });
