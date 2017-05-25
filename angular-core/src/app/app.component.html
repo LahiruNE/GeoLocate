@@ -24,10 +24,11 @@
     <div *ngIf="visible" id="result">      
       <img src="{{data?.icon}}"  />
       <div><b>{{data?.location}}</b> </div>
-      <div style="color:#07CFFC"><b>{{data?.date}}</b> </div>
-      <div style="color:#1707FC"> <b>{{data?.weatherDesc}}</b> </div>
-      <div style="color:#FC071B"><b>{{data?.temp}} Celcius</b></div>
-      <div style="color:#FC071B"><b>{{data?.humidity}}%</b></div>       
+      <div style="color:#e08e11"><b>Examined Date : {{data?.date}}</b> </div>
+      <div style="color:#000000"> <b>Weather Description : {{data?.weatherDesc}}</b> </div>
+      <div style="color:#e08e11"><b>Temperature : {{data?.temp}} Celcius</b></div>
+      <div style="color:#000000"><b>Humidity : {{data?.humidity}}%</b></div>   
+      <div style="color:#e08e11"><b>Cloud Coverage : {{data?.cloudcover}}%</b></div>    
     </div>
     
   </body>
