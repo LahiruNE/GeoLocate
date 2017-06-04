@@ -34,9 +34,9 @@ router.post('/value',(req,res1,next)=>{
             });
 
             res.on('end', function () {
-                var jsonres = JSON.parse(output)
-                if(jsonres.data.hasOwnProperty('error'))
-                    console.log(err); 
+                var jsonres = JSON.parse(output);
+                if(jsonres.data.hasOwnProperty('error')){
+                    console.log(err); }
                 else {
                     var vars = 
                     {
